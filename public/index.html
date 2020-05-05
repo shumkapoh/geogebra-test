@@ -28,7 +28,7 @@
   </head>
   <script src="GeoGebra/deployggb.js"></script>
   <script>
-    var id = 'app1';
+    let id = 'app1';
     var ggbApp = new GGBApplet(
       {
         id: id,
@@ -39,7 +39,7 @@
         showAlgebraInput: true,
         showMenuBar: true,
         appletOnLoad: () => {
-          console.log('loaded');
+          console.log('done loading');
         },
       },
       true

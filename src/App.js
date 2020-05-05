@@ -10,7 +10,7 @@ function App() {
   const [appId, setAppId] = useState(null);
 
   useEffect(() => {
-    window.addEventListener('load', async () => {
+    window.addEventListener('load', () => {
       app = board1Ref.current.children[0].children[1];
       setAppId(app.id);
       console.log(app);
@@ -18,7 +18,7 @@ function App() {
     });
 
     return window.removeEventListener('load', () => {});
-  }, []);
+  });
   return (
     <div>
       <Board refs={board1Ref} />
