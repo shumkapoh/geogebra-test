@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useRef, useState } from 'react';
+import Board from './component/Board';
 import './App.css';
 
 function App() {
+  const board1Ref = useRef(null);
+  const testRef = useRef(null);
+  let app;
+
+  const [appId, setAppId] = useState(null);
+
+  useEffect(() => {
+    window.addEventListener('load', async () => {
+      app = board1Ref.current.children[0].children[1];
+      setAppId(app.id);
+      console.log(app);
+      console.log(appId);
+    });
+
+    return window.removeEventListener('load', () => {});
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Board refs={board1Ref} />
+      <div id="test" ref={testRef} />
     </div>
   );
 }
