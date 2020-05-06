@@ -27,33 +27,9 @@
     <title>React App</title>
   </head>
   <script src="GeoGebra/deployggb.js"></script>
-  <script>
-    let id = 'app1';
-    var ggbApp = new GGBApplet(
-      {
-        id: id,
-        appName: 'geometry',
-        width: 800,
-        height: 600,
-        showToolBar: true,
-        showAlgebraInput: true,
-        showMenuBar: true,
-        appletOnLoad: () => {
-          console.log('done loading');
-        },
-      },
-      true
-    );
-
-    window.addEventListener('load', function () {
-      ggbApp.setHTML5Codebase('GeoGebra/HTML5/5.0/web3d/');
-      ggbApp.inject('ggb-element');
-    });
-  </script>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!-- <div id="ggb-element"></div> -->
     <input
       value="SetCoords"
       onclick="app1.setCoords('A', 5, 1)"
