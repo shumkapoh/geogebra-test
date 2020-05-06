@@ -9,6 +9,11 @@ function App() {
   return (
     <div>
       <Board refs={board1Ref} />
+      <input
+        value="SetCoords"
+        onClick={() => window.app1.setCoords('A', 5, 1)}
+        type="button"
+      />
       <div id="test" ref={testRef} />
     </div>
   );
