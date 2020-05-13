@@ -24,7 +24,7 @@ function App() {
         }}
         type="button"
       /> */}
-      <Board id="app1" width={500} height={500} canDrawLine={canDrawLine} />
+      <Board id="app1" width={500} height={600} canDrawLine={canDrawLine} />
       <input
         value={canDrawLine ? 'Draw Line' : 'Cannot draw line'}
         onClick={() => {

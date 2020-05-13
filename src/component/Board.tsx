@@ -47,18 +47,19 @@ const Board = (props: BoardProps) => {
   let mouseXPosition;
   let mouseYPosition;
 
-  const drawGrid = () => {
+  const renderGrid = () => {
     if (ctx) {
       ctx.lineWidth = 1;
-      ctx.strokeStyle = 'black';
+      ctx.strokeStyle = 'grey';
 
       // Draw Horizontal line
       let yGrid = width / 10;
-      while (yGrid < width) {
-        ctx.beginPath();
+      while (yGrid < height) {
+
         ctx.moveTo(0, yGrid);
         ctx.lineTo(width, yGrid);
         ctx.stroke();
+        ctx.beginPath();
 
         yGrid += width / 10;
       }
@@ -66,10 +67,11 @@ const Board = (props: BoardProps) => {
       // Draw Vertical line
       let xGrid = width / 10;
       while (xGrid < width) {
-        ctx.beginPath();
+
         ctx.moveTo(xGrid, 0);
         ctx.lineTo(xGrid, height);
         ctx.stroke();
+        ctx.beginPath();
 
         xGrid += width / 10;
       }
@@ -79,9 +81,9 @@ const Board = (props: BoardProps) => {
   useEffect(() => {
     ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
 
-    drawGrid()
+    renderGrid()
     return () => { }
-  }, [drawGrid])
+  }, [renderGrid])
 
 
 
