@@ -41,27 +41,70 @@ const Board = (props: BoardProps) => {
   const { ref, id, width, height, canDrawLine } = props;
   const [canDraw, setCanDraw] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const ctx: CanvasRenderingContext2D | null = canvasRef.current ? canvasRef.current.getContext('2d') : null;
+  let ctx: CanvasRenderingContext2D | null;
   const offsetTop = canvasRef.current ? canvasRef.current.offsetTop : 0;
   const offsetLeft = canvasRef.current ? canvasRef.current.offsetLeft : 0;
+  let mouseXPosition;
+  let mouseYPosition;
+
+  const drawGrid = () => {
+    if (ctx) {
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'black';
+
+      // Draw Horizontal line
+      let yGrid = width / 10;
+      while (yGrid < width) {
+        ctx.beginPath();
+        ctx.moveTo(0, yGrid);
+        ctx.lineTo(width, yGrid);
+        ctx.stroke();
+
+        yGrid += width / 10;
+      }
+
+      // Draw Vertical line
+      let xGrid = width / 10;
+      while (xGrid < width) {
+        ctx.beginPath();
+        ctx.moveTo(xGrid, 0);
+        ctx.lineTo(xGrid, height);
+        ctx.stroke();
+
+        xGrid += width / 10;
+      }
+    }
+  }
+
+  useEffect(() => {
+    ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
+
+    drawGrid()
+    return () => { }
+  }, [drawGrid])
+
+
 
   const startPosition = (event: any) => {
     // setCanDraw(!canDraw);
     console.log('startPosition', `x ${event.clientX - offsetLeft}`, `y ${event.clientY - offsetTop}`);
     // console.log('startPosition', canDraw);
     console.log('canDrawLine', canDrawLine);
+    mouseXPosition = event.clientX - offsetLeft;
+    mouseYPosition = event.clientY - offsetTop;
+    console.log('ctx', ctx)
 
 
     if (ctx) {
       ctx.lineWidth = 10;
       ctx.lineCap = 'round';
       if (canDrawLine) {
-        ctx.lineTo(event.clientX - offsetLeft, event.clientY - offsetTop);
+        ctx.lineTo(mouseXPosition, mouseYPosition);
         ctx.stroke();
 
       } else {
         ctx.beginPath();
-        ctx.moveTo(event.clientX - offsetLeft, event.clientY - offsetTop);
+        ctx.moveTo(mouseXPosition, mouseYPosition);
       }
     }
   }
@@ -78,13 +121,16 @@ const Board = (props: BoardProps) => {
     if (!canDraw) return;
     console.log(`x ${event.clientX}`, `y ${event.clientY}`)
 
+    mouseXPosition = event.clientX - offsetLeft;
+    mouseYPosition = event.clientY - offsetTop;
+
     if (ctx) {
       ctx.lineWidth = 10;
       ctx.lineCap = 'round';
-      ctx.lineTo(event.clientX - offsetLeft, event.clientY - offsetTop);
+      ctx.lineTo(mouseXPosition, mouseYPosition);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(event.clientX - offsetLeft, event.clientY - offsetTop);
+      ctx.moveTo(mouseXPosition, mouseYPosition);
     }
   }
 
@@ -98,7 +144,8 @@ const Board = (props: BoardProps) => {
       onMouseDown={(e) => startPosition(e)}
     // onMouseUp={(e) => endPosition(e)}
     // onMouseMove={(e) => draw(e)}
-    />
+    >
+    </canvas>
   )
 }
 
