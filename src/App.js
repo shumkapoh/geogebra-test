@@ -6,6 +6,7 @@ function App() {
   const board1Ref = useRef(null);
   const testRef = useRef(null);
   const [x, setX] = useState();
+  const [canDrawLine, setCanDrawLine] = useState(false);
 
   return (
     <div>
@@ -23,7 +24,15 @@ function App() {
         }}
         type="button"
       /> */}
-      <Board id="app1" width={500} height={500} />
+      <Board id="app1" width={500} height={500} canDrawLine={canDrawLine} />
+      <input
+        value={canDrawLine ? 'Draw Line' : 'Cannot draw line'}
+        onClick={() => {
+          setCanDrawLine(!canDrawLine);
+          console.log('Draw Line');
+        }}
+        type="button"
+      />
     </div>
   );
 }

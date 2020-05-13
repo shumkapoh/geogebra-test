@@ -38,7 +38,7 @@ import React, { useEffect, useState, useRef } from 'react';
 // }
 
 const Board = (props: BoardProps) => {
-  const { ref, id, width, height } = props;
+  const { ref, id, width, height, canDrawLine } = props;
   const [canDraw, setCanDraw] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctx: CanvasRenderingContext2D | null = canvasRef.current ? canvasRef.current.getContext('2d') : null;
@@ -46,8 +46,24 @@ const Board = (props: BoardProps) => {
   const offsetLeft = canvasRef.current ? canvasRef.current.offsetLeft : 0;
 
   const startPosition = (event: any) => {
-    setCanDraw(true);
+    // setCanDraw(!canDraw);
     console.log('startPosition', `x ${event.clientX - offsetLeft}`, `y ${event.clientY - offsetTop}`);
+    // console.log('startPosition', canDraw);
+    console.log('canDrawLine', canDrawLine);
+
+
+    if (ctx) {
+      ctx.lineWidth = 10;
+      ctx.lineCap = 'round';
+      if (canDrawLine) {
+        ctx.lineTo(event.clientX - offsetLeft, event.clientY - offsetTop);
+        ctx.stroke();
+
+      } else {
+        ctx.beginPath();
+        ctx.moveTo(event.clientX - offsetLeft, event.clientY - offsetTop);
+      }
+    }
   }
 
   const endPosition = (event: any) => {
@@ -80,8 +96,9 @@ const Board = (props: BoardProps) => {
       width={width}
       height={height}
       onMouseDown={(e) => startPosition(e)}
-      onMouseUp={(e) => endPosition(e)}
-      onMouseMove={(e) => draw(e)} />
+    // onMouseUp={(e) => endPosition(e)}
+    // onMouseMove={(e) => draw(e)}
+    />
   )
 }
 
@@ -90,11 +107,13 @@ interface BoardProps {
   id: string,
   width: number,
   height: number,
+  canDrawLine: boolean,
 }
 
 Board.defaultProps = {
   width: window.innerWidth,
-  height: window.innerHeight
+  height: window.innerHeight,
+  canDrawLine: false,
 }
 
 export default Board;
