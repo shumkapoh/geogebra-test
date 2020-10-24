@@ -139,7 +139,7 @@ const Board = (props: BoardProps) => {
   return (
     <canvas
       ref={canvasRef}
-      style={{ border: '1px solid black', marginLeft: '10%', marginTop: '10%' }}
+      style={{ border: '1px solid black' }}
       id={id}
       width={width}
       height={height}
@@ -157,6 +157,7 @@ interface BoardProps {
   width: number,
   height: number,
   canDrawLine: boolean,
+  className: string,
 }
 
 Board.defaultProps = {
