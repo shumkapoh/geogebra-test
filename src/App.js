@@ -26,7 +26,7 @@ function App() {
       /> */}
       <Board id="app1" width={500} height={600} canDrawLine={canDrawLine} />
       <input
-        value={canDrawLine ? 'Draw Line' : 'Cannot draw line'}
+        value={canDrawLine ? 'Disable line drawing' : 'Enable line drawing'}
         onClick={() => {
           setCanDrawLine(!canDrawLine);
           console.log('Draw Line');
