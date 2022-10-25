@@ -1,13 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
-import Board from './component/Board';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 import { Button } from '@mui/material';
 
-import './App.scss';
+import Board from './component/Board';
 
+import './App.scss';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
+const theme = createTheme();
 
 function App() {
   const board1Ref = useRef(null);
@@ -32,6 +36,7 @@ function App() {
         }}
         type="button"
       /> */}
+      <ThemeProvider theme={theme}>
       <div className="board-wrapper">
         <Board
           id="app1"
@@ -53,6 +58,7 @@ function App() {
           </Button>
         </div>
       </div>
+      </ThemeProvider>
     </div>
   );
 }
